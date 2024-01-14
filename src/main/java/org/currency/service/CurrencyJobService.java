@@ -56,7 +56,7 @@ public class CurrencyJobService {
                                                        } catch (Exception e) {
                                                        }
                                                      }
-                                                     if (RateProviderType.valueOf(rateProvider.getProviderName()) == RateProviderType.BLABLABLA) {
+                                                     if (rateProvider.getProviderName() == null || RateProviderType.valueOf(rateProvider.getProviderName()) == RateProviderType.BLABLABLA) {
                                                        return Mono.empty();
                                                      }
                                                      return null;
