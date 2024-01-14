@@ -1,0 +1,50 @@
+plugins {
+    id 'org.springframework.boot' version "$springBootVersion"
+    id 'io.spring.dependency-management' version "$springDependencyManagement"
+    id 'java'
+}
+
+group = 'org.currency'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'http://localhost:8083/repository/maven-snapshots'
+        credentials {
+            username = "admin"
+            password = "admin123"
+        }
+        allowInsecureProtocol true
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation "org.springframework.boot:spring-boot-starter-webflux"
+
+    implementation 'org.leantech-common:dto:1.4-SNAPSHOT'
+
+    implementation "net.javacrumbs.shedlock:shedlock-spring:$shedlock"
+    implementation "net.javacrumbs.shedlock:shedlock-provider-jdbc-template:$shedlock"
+    implementation "org.postgresql:postgresql:$postgreSqlVersion"
+    implementation "org.postgresql:r2dbc-postgresql:$r2dbcVersion"
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.flywaydb:flyway-core'
+
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+
+
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
+    implementation "org.projectlombok:lombok:$lombokVersion"
+
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
+}
+
+test {
+    useJUnitPlatform()
+}

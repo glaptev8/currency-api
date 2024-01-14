@@ -1,0 +1,39 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  r2dbc:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  flyway:
+    url: ${FLYWAY_DATASOURCE_URL}
+    user: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  data:
+    redis:
+      repositories:
+        enabled: false
+      host: ${SPRING_REDIS_HOST}
+      port: ${SPRING_REDIS_PORT}
+
+datasource:
+  url: ${SPRING_DATASOURCE_URL_JDBC}
+  driver-class-name: "org.postgresql.Driver"
+  username: ${SPRING_DATASOURCE_USERNAME}
+  password: ${SPRING_DATASOURCE_PASSWORD}
+
+integration:
+  currency-property:
+    base-url: https://api.currencyapi.com
+    latest: v3/latest
+    headers:
+      - key: apiKey
+        value: cur_live_XFxg7WWL0eiU53NAr4Ze7WhkoxdOs3Kc9z5lWUne
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
