@@ -3,13 +3,13 @@ package org.currency.service;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import org.currency.dto.ConvertRequest;
+import org.currency.dto.ConvertResponse;
 import org.currency.entity.Currency;
 import org.currency.entity.RateCorrectionCoefficient;
 import org.currency.repository.CurrencyRepository;
 import org.currency.repository.RateCorrectionCoefficientRepository;
 import org.currency.repository.RedisCurrencyRepository;
-import org.leantech.currency.dto.ConvertRequest;
-import org.leantech.currency.dto.ConvertResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.reactive.TransactionalOperator;
 
@@ -38,28 +38,6 @@ public class CurrencyServiceImpl implements CurrencyService {
           return currencyRepository.save(savedCurrency);
         })
         .switchIfEmpty(currencyRepository.save(currencyToSave))
-        .flatMap(savedCurrency -> currencyRepository.findAll()
-          .flatMap(currency -> {
-            if (!Objects.equals(currency.getCode(), currencyToSave.getCode())) {
-              return rateCorrectionCoefficientRepository
-                .findBySourceCodeAndDestinationCodeAndMultiplierAndArchivedFalseAndProviderCodeIsNullAndDateFromIsNullAndDateToIsNull(currencyToSave.getCode(),
-                                                                                 currency.getCode(),
-                                                                                 BigDecimal.ONE)
-                .switchIfEmpty(rateCorrectionCoefficientRepository.save(RateCorrectionCoefficient.builder()
-                                                                          .sourceCode(currencyToSave.getCode())
-                                                                          .destinationCode(currency.getCode())
-                                                                          .multiplier(BigDecimal.ONE)
-                                                                          .build())
-                                 .then(rateCorrectionCoefficientRepository.save(RateCorrectionCoefficient.builder()
-                                                                                  .sourceCode(currency.getCode())
-                                                                                  .destinationCode(currencyToSave.getCode())
-                                                                                  .multiplier(BigDecimal.ONE)
-                                                                                  .build())))
-                .then(Mono.just(currency));
-            }
-            return Mono.just(currency);
-          })
-          .then(Mono.just(savedCurrency)))
     );
   }
 

@@ -1,4 +1,4 @@
-package org.currency.job.currencyapi;
+package org.currency.integration.currencyapi;
 
 import org.currency.integration.Base;
 

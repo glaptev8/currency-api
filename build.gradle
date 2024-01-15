@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation "org.springframework.boot:spring-boot-starter-webflux"
 
-    implementation 'org.leantech-common:dto:1.4-SNAPSHOT'
+    implementation 'org.leantech-common:dto:1.5-SNAPSHOT'
 
     implementation "net.javacrumbs.shedlock:shedlock-spring:$shedlock"
     implementation "net.javacrumbs.shedlock:shedlock-provider-jdbc-template:$shedlock"

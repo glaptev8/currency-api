@@ -1,6 +1,6 @@
 package org.currency.config;
 
-import org.currency.job.currencyapi.CurrencyApiProperty;
+import org.currency.integration.currencyapi.CurrencyApiProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
